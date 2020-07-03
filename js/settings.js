@@ -81,6 +81,7 @@ function initDefaults() {
     // always init game with sound on and music off
     localStorage.setItem("music", 0);
     localStorage.setItem("sound", 1);
+    localStorage.setItem("time-remaining",0);
 }
 
 function setState() {

@@ -9,7 +9,7 @@ let SECONDS_PER_CARD = 3;
 let CHEAT_MIN_SCORE = 100;
 let cd = null;
 let logics = null;
-let timeRemaining = 0;
+var timeRemaining = 0;
 let currentLevel = 0;
 
 class CardDefinition {
@@ -457,8 +457,8 @@ function layout()
         
         c.addEventListener('dblclick',  () => {
             if( c.classList.contains("matched")) {
-                displayIndexCards(c.getElementsByTagName("img")[0].getAttribute("src"));
                 localStorage.setItem("time-remaining", timeRemaining);
+                displayIndexCards(c.getElementsByTagName("img")[0].getAttribute("src"));
             }
         });
     });
@@ -525,8 +525,17 @@ function ready() {
 
 function restoreGame() {
     document.getElementById('lightgallery').innerHTML = "";
+    var startTimeAgain = false;
+    if(timeRemaining == 0) {
+        // timer expired while we were looking at cards in the gallery
+        startTimerAgain = true;
+    }
     timeRemaining = localStorage.getItem("time-remaining");
     if(timeRemaining == null || timeRemaining === undefined ) {
         timeRemaining = 0;
+    }
+
+    if(timeRemaining > 0 && startTimerAgain == true) {
+        logics.startTimer();
     }
 }
